@@ -6,8 +6,10 @@
   <% if user_signed_in? %>
     <h2>ようこそ、<%= current_user.email %>さん</h2>
     <p>
-        <%= link_to "ログアウト", destroy_user_session_path, data: { turbo_method: :delete }, class:"btn-element" %>
         <%= link_to "マイページ",user_path(current_user), class:"btn-element" %>
+        <%= link_to "カート", cart_items_path, class:"btn-action" %>
+        <%= link_to "お気に入り", favorites_path, class:"btn-action" %>
+        <%= link_to "ログアウト", destroy_user_session_path, data: { turbo_method: :delete }, class:"btn-element" %>
     </p>
   <% else %>
     <h2><%= link_to "ログイン", new_user_session_path, class:"btn-element" %></h2>
@@ -21,13 +23,19 @@
 <% if @products.empty? %>
 <p class="text-center">登録された商品がありません</p>
 <% else %>
-<p>登録された商品が <%= @products.count %> 件あります</p>
+<p class="text-center">登録された商品が <%= @products.count %> 件あります</p>
 <% end %>
+<div class="products-wrapper">
 <% @products.each do |p| %>
   <div class="product">
-    <h2><%= link_to p.name, product_path(p) %></h2>
-    <p>価格: <%= number_to_currency(p.price) %></p>
+    <h2><%= link_to p.title, product_path(p) %></h2>
+    <p>価格: <%= number_to_currency(p.price.to_i, unit:"¥" , precision:0) %></p>
     <p>説明: <%= truncate(p.description, length: 100) %></p>
+    <%= link_to "詳細をみる",product_path(p), class: "btn-show" %>
+    <div class="display-wrapper">
+    <%= button_to "お気に入り登録", favorite_product_path(p), method: :post, class: "btn-sub" %>
+    <%= button_to "カートに入れる", cart_items_path(product_id:p.id), method: :post, class: "btn-sub" %>
+    </div>
   </div>
 <% end %>
-
+</div>

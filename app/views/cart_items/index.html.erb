@@ -1,0 +1,41 @@
+<h2>マイカート</h2>
+
+<% if @cart_items.empty? %>
+  <p class="text-center">カートに商品がありません。</p>
+<% else %>
+  <p class="text-center">カートに <%= @cart_items.count %> 件の商品があります。</p>
+
+  <table>
+    <thead>
+      <tr class="table-header">
+        <th>商品名</th>
+        <th>価格</th>
+        <th>数量</th>
+        <th>小計</th>
+        <th>操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @cart_items.each do |item| %>
+        <tr>
+          <td><%= link_to item.product.title, product_path(item.product) %></td>
+          <td><%= number_to_currency(item.product.price.to_i, unit: "¥", precision: 0, format: "%u%n") %></td>
+          <td>
+            <%= form_with model: item, url: cart_item_path(item), method: :patch, local: true do |f| %>
+              <%= f.number_field :quantity, in: 1..99, value: item.quantity %>
+              <%= f.submit "更新" %>
+            <% end %>
+          </td>
+          <td>
+            <%= number_to_currency(item.product.price.to_i * item.quantity, unit: "¥", precision: 0, format: "%u%n") %>
+          </td>
+          <td>
+            <%= link_to "削除", cart_item_path(item), data: { turbo_method: :delete, turbo_confirm: "本当に削除しますか？" } %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>
+
+<%= link_to "TOPへ戻る", root_path, class: "btn-sub" %>

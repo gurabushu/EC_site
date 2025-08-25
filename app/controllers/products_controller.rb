@@ -36,14 +36,11 @@ before_action :set_product, only: [:show, :edit, :update, :destroy]
     end
   end
 
-  def new
-    @product = Product.new
-  end
 
   private
-   def set_product
-    @product = Product.find(params[:id])
-   end
+    def set_product
+      @product = Product.find(params[:id])
+    end
 
 end
 
