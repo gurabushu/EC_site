@@ -1,0 +1,23 @@
+<h2>プロフィール編集</h2>
+
+<%= form_with model: @user, local: true do |f| %>
+<div class="field-wrapper">
+  <div class="field">
+    <%= f.label :email %><br>
+    <%= f.email_field :email %>
+  </div>
+
+  <div class="field">
+    <%= f.label :password %><br>
+    <%= f.password_field :password %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "更新" %>
+  </div>
+<% end %>
+</div>
+
+<%= link_to "戻る", root_path, class:"back-action" %>
+<%= link_to "商品登録",new_product_path, class:"btn-center" %>
+
