@@ -1,0 +1,9 @@
+<div class="field-wrapper">
+<h1><%= @product.title %></h1>
+<p>価格: <%= number_to_currency(@product.price, unit: "¥") %></p>
+<p>在庫: <%= @product.stock %></p>
+<p>説明: <%= @product.description %></p>
+
+</div>
+<%= link_to "一覧へ戻る", products_path, class: "btn-center" %>
+<%= link_to "編集", edit_product_path(@product), class: "btn-action" %>

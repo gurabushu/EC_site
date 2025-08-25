@@ -10,8 +10,9 @@ class UsersController < ApplicationController
     end
   end
 
+
   def show
-    @product = Product.find(params[:id])
+    @user = User.find(params[:id])
   end
 
 end

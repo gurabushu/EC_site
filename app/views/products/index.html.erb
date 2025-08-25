@@ -1,0 +1,16 @@
+<h2>登録商品一覧</h2>
+<% if @products.blank? %>
+  <p class="text-center">登録された商品がありません</p>
+<% else %>
+
+  <p class="text-center">登録された商品が <%= @products.count %> 件あります</p>
+  <% @products.each do |p| %>
+    <div class="product">
+      <h2><%= link_to p.title, product_path(p) %></h2>
+      <p>価格: <%= number_to_currency(p.price, unit: "¥") %></p>
+    </div>
+  <% end %>
+<% end %>
+
+
+<%= link_to "商品新規登録", new_product_path, class:"btn-center" %>
