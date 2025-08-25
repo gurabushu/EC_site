@@ -38,4 +38,17 @@
   </table>
 <% end %>
 
+<% if @cart_items.present? %>
+<h3 class="text-right">
+合計金額：
+<%= number_to_currency(@cart_items.inject(0) { |sum, item| sum + item.product.price.to_i * item.quantity }, unit: "¥", precision: 0, format: "%u%n") %>
+</h3>
+
+<%= button_to "カートを空にする",
+        clear_cart_items_path,
+        method: :delete,
+        data: { turbo_confirm: "本当にカートを空にしますか？" },
+        class: "btn-sub" %>
+<% end %>
+
 <%= link_to "TOPへ戻る", root_path, class: "btn-sub" %>
