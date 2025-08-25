@@ -9,7 +9,9 @@ Rails.application.routes.draw do
   end
   
   resources :users, only: [:index, :show, :edit, :update]
-  resources :cart_items, only: [:index, :create, :update, :destroy]
+  resources :cart_items, only: [:index, :create, :update, :destroy] do
+    delete :clear, on: :collection
+  end
   resources :favorites, only: [:index, :create, :destroy]
   resources :orders, only: [:index, :show]
   
