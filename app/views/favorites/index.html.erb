@@ -1,0 +1,30 @@
+<h2>お気に入り一覧</h2>
+
+<% if @favorites.blank? %>
+  <p class="text-center">お気に入りはまだありません。</p>
+<% else %>
+  <p class="text-center">お気に入りは <%= @favorites.size %> 件あります。</p>
+
+  <table>
+    <thead>
+      <tr class="table-header">
+        <th>商品名</th>
+        <th>価格</th>
+        <th>操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @favorites.each do |favorite| %>
+        <tr>
+          <td><%= link_to favorite.product.title, product_path(favorite.product) %></td>
+          <td><%= number_to_currency(favorite.product.price.to_i, unit: "¥", precision: 0, format: "%u%n") %></td>
+          <td>
+            <%= button_to "削除", product_favorite_path(favorite.product), method: :delete, data: { turbo_confirm: "本当に削除しますか？" } %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>
+
+<%= link_to "TOPへ戻る", root_path, class: "btn-sub" %>

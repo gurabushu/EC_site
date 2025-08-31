@@ -35,9 +35,10 @@
     <p>説明: <%= truncate(p.description, length: 100) %></p>
     <%= link_to "詳細をみる",product_path(p), class: "btn-show" %>
     <div class="display-wrapper">
-    <%= button_to "お気に入り登録", favorite_product_path(p), method: :post, class: "btn-sub" %>
-    <%= button_to "カートに入れる", cart_items_path(product_id:p.id), method: :post, class: "btn-sub" %>
+      <%= button_to "お気に入り登録", product_favorite_path(p), method: :post, class: "btn-favo" %>
+      <%= button_to "お気に入り解除", product_favorite_path(p), method: :delete, class: "btn-favo" %>
     </div>
+    <%= button_to "カートに入れる", cart_items_path(product_id:p.id), method: :post, class: "btn-cart" %>
   </div>
 <% end %>
 </div>
