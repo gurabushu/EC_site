@@ -39,6 +39,11 @@ class CartItemsController < ApplicationController
     redirect_to cart_items_path, notice: "商品をカートから削除しました"
   end
 
+  def clear
+    current_user.cart_items.destroy_all
+    redirect_to cart_items_path, notice: "カートを空にしました"
+  end
+
   private
 
   def set_cart_item

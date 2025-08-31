@@ -1,0 +1,36 @@
+<%= form_with model: @order,local: true do |f| %>
+  <h2>購入情報入力</h2>
+    
+  <div class="field-wrapper">
+  <div class="field">
+    <p>合計金額: <%= number_to_currency(@total_price, unit: "¥", precision: 0, format: "%u%n") %></p>
+  </div>
+
+  <div class="field">
+    <%= f.label :payment_method, "支払い方法" %>
+    <%= f.select :payment_method, options_for_select([["クレジットカード", "credit_card"], ["銀行振込", "bank_transfer"], ["代金引換", "cash_on_delivery"]]) %>
+  </div>
+
+  <div class="filed">
+    <%= f.label "購入商品一覧" %>
+    <ul>
+      <% @cart_items.each do |item| %>
+        <li>
+          <%= item.product.title %>
+          <p>数量：<%= item.quantity %></p>
+          <p>単価：<%= number_to_currency(item.product.price.to_i, unit: "¥", precision:0, format: "%u%n") %></p>
+          <p>小計：<%= number_to_currency(item.product.price.to_i * item.quantity, unit: "¥", precision:0, format: "%u%n") %></p>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+
+
+  <div class="field">
+    <%= f.submit "購入する" %>
+  </div>
+
+  <% end %>
+</div>
+
+  <%= link_to "カートに戻る", cart_items_path, class: "back-action" %>
