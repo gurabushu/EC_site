@@ -11,7 +11,7 @@
     <%= f.select :payment_method, options_for_select([["クレジットカード", "credit_card"], ["銀行振込", "bank_transfer"], ["代金引換", "cash_on_delivery"]]) %>
   </div>
 
-  <div class="filed">
+  <div class="buy-content">
     <%= f.label "購入商品一覧" %>
     <ul>
       <% @cart_items.each do |item| %>
@@ -26,11 +26,14 @@
   </div>
 
 
-  <div class="field">
+  <%= form_with model: @order, local: true do |f| %>
+  <div class="buy">
     <%= f.submit "購入する" %>
   </div>
+  </div>
+  <% end %>
 
   <% end %>
-</div>
+
 
   <%= link_to "カートに戻る", cart_items_path, class: "back-action" %>
