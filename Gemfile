@@ -64,4 +64,4 @@ end
 
 gem "devise", "~> 4.9"
 
-gem "devise-i18n", "~> 1.14"
+gem "devise-i18n", "~> 1.15"
